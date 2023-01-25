@@ -1,23 +1,19 @@
 import React, {useEffect} from 'react';
-import { Container, LoadingIcon } from './styles';
-import { useNavigation } from '@react-navigation/native';
-import { StatusBar } from 'react-native';
-import db from '../../../db.json'
+import {Container, LoadingIcon} from './styles';
+import {useNavigation} from '@react-navigation/native';
 
 export default () => {
+  const navigation = useNavigation();
 
-    const navigation = useNavigation();
+  useEffect(() => {
+    navigation.reset({
+      routes: [{name: 'Home'}],
+    });
+  }, []);
 
-    useEffect(() => {
-        navigation.reset({
-            routes: [{ name: 'SignIn' }]
-        });
-    }, []);
-
-    return (
-        <Container>
-             <StatusBar backgroundColor={db.theme.colors.primary} barStyle="light-content" />
-            <LoadingIcon size="large" color="#FFFFFF" />
-        </Container>
-    );
-}
+  return (
+    <Container>
+      <LoadingIcon size="large" color="#FFFFFF" />
+    </Container>
+  );
+};

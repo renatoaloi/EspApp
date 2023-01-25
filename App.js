@@ -10,38 +10,47 @@ import SignIn from './src/screens/SignIn';
 import SignUp from './src/screens/SignUp';
 import MainTab from './src/stacks/MainTab';
 import Historic from './src/screens/Historic';
+import Home from './src/screens/Home';
 
 const navOptionHandler = () => ({
   headerShown: false,
 });
 
 const Drawer = createDrawerNavigator();
-
 function DrawerNavigator({navigation}) {
   return (
     <Drawer.Navigator
       initialRouteName="Preload"
-      drawerContent={() => <MainDrawer navigation={navigation} />}>
+      drawerContent={
+        () => <MainDrawer navigation={navigation} />
+      }>
       <Drawer.Screen name="Preload" component={Preload} />
       <Drawer.Screen name="SignIn" component={SignIn} />
       <Drawer.Screen name="SignUp" component={SignUp} />
       <Drawer.Screen name="MainTab" component={MainTab} />
       <Drawer.Screen name="Historic" component={Historic} />
+      <Drawer.Screen name="Home" component={Home} />
     </Drawer.Navigator>
   );
 }
+
 const StackApp = createStackNavigator();
+function StackNavigator({navigation}) {
+  return (
+    <StackApp.Navigator initialRouteName="Preload">
+      <StackApp.Screen
+        name="Drawer"
+        component={DrawerNavigator}
+        options={navOptionHandler}
+      />
+    </StackApp.Navigator>
+  );
+}
 
 export default function App() {
   return (
     <NavigationContainer>
-      <StackApp.Navigator initialRouteName="Preload">
-        <StackApp.Screen
-          name="Drawer"
-          component={DrawerNavigator}
-          options={navOptionHandler}
-        />
-      </StackApp.Navigator>
+      <StackNavigator />
     </NavigationContainer>
   );
 }
