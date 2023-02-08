@@ -19,10 +19,10 @@ import {useNavigation} from '@react-navigation/native';
 import db from '../../../db.json';
 import * as Animatable from 'react-native-animatable';
 import styleGlobal from '../../styles/global';
-import TcpSocket from 'react-native-tcp-socket';
+import dgram from 'react-native-udp'
 
 export default () => {
-  const port = 124;
+  const port = 12345;
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
   const [foundEspList, setFoundEspList] = useState([]);
@@ -41,76 +41,30 @@ export default () => {
   }, [foundIpList]);
 
   function tryToConnect(options) {
-    const client = TcpSocket.createConnection(options, () => {
-      console.log('Trying to connect...');
-      client.destroy();
-    });
+    const socket = dgram.createSocket('udp4')
+    socket.bind(options.port)
+    socket.once('listening', function() {
+      socket.send('Hello World!', undefined, undefined, options.port, options.host, function(err) {
+        if (err) throw err
+        console.log('Message sent!')
+      })
+    })
 
-    client.on('error', function (error) {
-      console.log(error);
-    });
-
-    client.on('connect', function () {
-      setFoundIpList([
-        ...foundIpList,
-        {
-          host: options.host,
-        },
-      ]);
-      console.log('Conectou!');
-    });
-  }
-
-  function connectAndHandShake(options) {
-    const client = TcpSocket.createConnection(options, () => {
-      console.log('Write on the socket6');
-      client.write('SYN', 'ascii');
-    });
-
-    client.on('data', function (data) {
-      console.log('message was received', data);
-      var buffer = {
-        data: data.toString(),
-      };
-      console.log('data.data', buffer.data);
-      if (buffer.data === 'SYN-ACK') {
-        client.end('ACK', 'ascii');
-        setFoundEspList([
-          ...foundEspList,
-          {
-            host: options.host,
-            name: 'Unknown ESP8266',
-          },
-        ]);
-      } else {
-        client.end('NACK', 'ascii');
-      }
-      if (options.host === '192.168.0.255') {
-        setLoading(false);
-      }
-    });
-
-    client.on('error', function (error) {
-      console.log(error);
-    });
-
-    client.on('close', function () {
-      console.log('Connection closed!');
-    });
+    socket.on('message', function(msg, rinfo) {
+      console.log('Message received', msg)
+    })
   }
 
   function botaoPressionado() {
     setLoading(true);
-    for (var i = 1; i < 255; i++) {
-      const options = {
-        port: port,
-        host: '192.168.0.' + (i + 1),
-        localAddress: '0.0.0.0',
-        reuseAddress: true,
-      };
-      //connectAndHandShake(options);
-      tryToConnect(options);
-    }
+    const options = {
+      port: port,
+      host: '192.168.0.255',
+      localAddress: '127.0.0.1',
+      reuseAddress: true,
+    };
+    //connectAndHandShake(options);
+    tryToConnect(options);
   }
 
   return (
