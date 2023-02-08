@@ -11,6 +11,8 @@ import SignUp from './src/screens/SignUp';
 import MainTab from './src/stacks/MainTab';
 import Historic from './src/screens/Historic';
 import Home from './src/screens/Home';
+import Profile from './src/screens/Profile';
+import NewDevice from './src/screens/NewDevice';
 
 const navOptionHandler = () => ({
   headerShown: false,
@@ -30,6 +32,8 @@ function DrawerNavigator({navigation}) {
       <Drawer.Screen name="MainTab" component={MainTab} />
       <Drawer.Screen name="Historic" component={Historic} />
       <Drawer.Screen name="Home" component={Home} />
+      <Drawer.Screen name="Profile" component={Profile} />
+      <Drawer.Screen name="NewDevice" component={NewDevice} />
     </Drawer.Navigator>
   );
 }

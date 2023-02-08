@@ -169,9 +169,7 @@ export default () => {
                     : [db.theme.colors.statuBar, db.theme.colors.statuBar]
                 }
                 style={styleGlobal.signIn}>
-                <Text style={(styleGlobal.textSignIn, styleGlobal.colorWhite)}>
-                  Entrar
-                </Text>
+                <Text style={styleGlobal.textBtnSignIn}>Entrar</Text>
               </LinearGradient>
             </TouchableOpacity>
 

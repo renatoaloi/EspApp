@@ -1,55 +1,77 @@
 import React from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import {View} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {Container, ViewItem, TextItem, Opcoes} from '../stacks/styles';
+import {
+  Container,
+  ViewItem,
+  TextItem,
+  Opcoes,
+  StyledTouchableOpacity,
+} from '../stacks/styles';
 
 const MainDrawer = props => {
   return (
     <Container>
       <ViewItem>
-        <TouchableOpacity
-          onPress={() =>
-            props.navigation.navigate('Preload')
-          }>
+        <StyledTouchableOpacity
+          onPress={() => props.navigation.navigate('Preload')}>
           <Opcoes>
-            <MaterialIcons name="home" size={20} style={{color: 'white'}} />
+            <MaterialIcons name="refresh" size={28} style={{color: 'white'}} />
             <TextItem>Preload</TextItem>
           </Opcoes>
-        </TouchableOpacity>
+        </StyledTouchableOpacity>
 
-        <TouchableOpacity onPress={() => props.navigation.navigate('SignIn')}>
+        <StyledTouchableOpacity
+          onPress={() => props.navigation.navigate('SignIn')}>
           <Opcoes>
-            <MaterialIcons name="home" size={20} style={{color: 'white'}} />
+            <MaterialIcons name="login" size={28} style={{color: 'white'}} />
             <TextItem>SignIn</TextItem>
           </Opcoes>
-        </TouchableOpacity>
+        </StyledTouchableOpacity>
 
-        <TouchableOpacity onPress={() => props.navigation.navigate('SignUp')}>
+        <StyledTouchableOpacity
+          onPress={() => props.navigation.navigate('NewDevice')}>
           <Opcoes>
-            <MaterialIcons name="home" size={20} style={{color: 'white'}} />
+            <MaterialIcons name="add" size={28} style={{color: 'white'}} />
+            <TextItem>New Device</TextItem>
+          </Opcoes>
+        </StyledTouchableOpacity>
+
+        <StyledTouchableOpacity
+          onPress={() => props.navigation.navigate('SignUp')}>
+          <Opcoes>
+            <MaterialIcons
+              name="person-add"
+              size={28}
+              style={{color: 'white'}}
+            />
             <TextItem>SignUp</TextItem>
           </Opcoes>
-        </TouchableOpacity>
+        </StyledTouchableOpacity>
 
-        <TouchableOpacity onPress={() => props.navigation.navigate('MainTab')}>
+        <StyledTouchableOpacity
+          onPress={() => props.navigation.navigate('Historic')}>
           <Opcoes>
-            <MaterialIcons name="home" size={20} style={{color: 'white'}} />
-            <TextItem>MainTab</TextItem>
-          </Opcoes>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => props.navigation.navigate('Historic')}>
-          <Opcoes>
-            <MaterialIcons name="home" size={20} style={{color: 'white'}} />
+            <MaterialIcons name="favorite" size={28} style={{color: 'white'}} />
             <TextItem>Historic</TextItem>
           </Opcoes>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => props.navigation.navigate('Home')}>
+        </StyledTouchableOpacity>
+
+        <StyledTouchableOpacity
+          onPress={() => props.navigation.navigate('Profile')}>
           <Opcoes>
-            <MaterialIcons name="home" size={20} style={{color: 'white'}} />
+            <MaterialIcons name="person" size={28} style={{color: 'white'}} />
+            <TextItem>Profile</TextItem>
+          </Opcoes>
+        </StyledTouchableOpacity>
+
+        <StyledTouchableOpacity
+          onPress={() => props.navigation.navigate('Home')}>
+          <Opcoes>
+            <MaterialIcons name="home" size={28} style={{color: 'white'}} />
             <TextItem>Home</TextItem>
           </Opcoes>
-        </TouchableOpacity>
+        </StyledTouchableOpacity>
       </ViewItem>
     </Container>
   );

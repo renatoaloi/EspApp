@@ -3,7 +3,7 @@ import db from '../../../db.json';
 
 export const PrimaryText = styled.Text`
   font-size: 28px;
-  color: ${db.theme.colors.wrong};
+  color: ${db.theme.colors.primary};
 `;
 
 export const Container = styled.SafeAreaView`
