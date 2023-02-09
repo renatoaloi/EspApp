@@ -27,6 +27,7 @@ export default () => {
   const [loading, setLoading] = useState(false);
   const [foundEspList, setFoundEspList] = useState([]);
   const [foundIpList, setFoundIpList] = useState([]);
+  const [retornoConsulta, setRetornoConsulta] = useState("Aqui vai o retorno da consulta");
 
   useEffect(() => {
     if (foundEspList.length > 0) {
@@ -43,6 +44,7 @@ export default () => {
   function tryToConnect(options) {
     const socket = dgram.createSocket('udp4')
     socket.bind(options.port)
+    
     socket.once('listening', function() {
       socket.send('Hello World!', undefined, undefined, options.port, options.host, function(err) {
         if (err) throw err
@@ -51,7 +53,13 @@ export default () => {
     })
 
     socket.on('message', function(msg, rinfo) {
-      console.log('Message received', msg)
+      var buffer = {
+        data: msg.toString(),
+      };
+      console.log('data.data', buffer.data);
+      setRetornoConsulta("Achei um ESP no IP: 192.168.0." + buffer.data + "! Sucesso amados!");
+      console.log('Message received', msg);
+      setLoading(false);
     })
   }
 
@@ -99,7 +107,7 @@ export default () => {
           </ButtonView>
           <View>
             <Text style={{color: 'black', marginTop: 20}}>
-              Aqui vai o retorno da consulta
+              {retornoConsulta}
             </Text>
           </View>
         </ScrollView>
