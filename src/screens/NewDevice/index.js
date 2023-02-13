@@ -47,7 +47,7 @@ export default () => {
       setFoundEspList([
         ...localFoundEspList,
         {
-          key: "ESP #" + countEspList + " :: 192.168.0." + buffer.data
+          key: "ESP #" + countEspList + " :: " + buffer.data
         }
       ]);
       setCountEspList(countEspList+1);
